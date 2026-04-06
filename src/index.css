@@ -1,0 +1,315 @@
+/**
+ * index.css — Global styles with glassmorphism design system.
+ * Premium dark-first finance dashboard.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Layer ───────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-dark-1000 text-slate-100 transition-colors duration-300;
+    min-height: 100vh;
+  }
+
+  /* Light mode override */
+  body.light {
+    @apply bg-slate-50 text-slate-900;
+  }
+
+  :root {
+    --glow-primary:  rgba(14, 157, 232, 0.2);
+    --glow-violet:   rgba(139, 92, 246, 0.2);
+    --glow-cyan:     rgba(34, 211, 238, 0.2);
+    --glow-emerald:  rgba(52, 211, 153, 0.2);
+    --glow-rose:     rgba(251, 113, 133, 0.2);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar       { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-slate-700 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-slate-500; }
+
+  /* Selection */
+  ::selection { @apply bg-primary-500/30 text-primary-200; }
+}
+
+/* ─── Component Layer ──────────────────────────────────────────────────────── */
+@layer components {
+
+  /* Glass card */
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  .glass-light {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .glass-hover {
+    @apply glass transition-all duration-300;
+  }
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  /* Card */
+  .card {
+    @apply glass rounded-2xl;
+  }
+
+  .card-light {
+    @apply glass-light rounded-2xl;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm
+           bg-primary-500 hover:bg-primary-400 text-white
+           transition-all duration-200 active:scale-95
+           shadow-glow-sm hover:shadow-glow-md;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm
+           text-slate-300 hover:text-white hover:bg-white/5
+           border border-white/5 hover:border-white/10
+           transition-all duration-200 active:scale-95;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm
+           bg-rose-500 hover:bg-rose-400 text-white
+           transition-all duration-200 active:scale-95;
+  }
+
+  .btn-success {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm
+           bg-emerald-500 hover:bg-emerald-400 text-white
+           transition-all duration-200 active:scale-95;
+  }
+
+  /* Input */
+  .input {
+    @apply w-full px-4 py-3 rounded-xl text-sm text-slate-100
+           bg-white/5 border border-white/8
+           placeholder-slate-500
+           focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500/50
+           transition-all duration-200;
+  }
+
+  /* Badges */
+  .badge-income {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold
+           bg-emerald-500/15 text-emerald-400 border border-emerald-500/20;
+  }
+
+  .badge-expense {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold
+           bg-rose-500/15 text-rose-400 border border-rose-500/20;
+  }
+
+  /* Gradient text */
+  .text-gradient-primary {
+    @apply text-transparent bg-clip-text;
+    background-image: linear-gradient(135deg, #3ab8fb 0%, #8b5cf6 100%);
+  }
+  .text-gradient-gold {
+    @apply text-transparent bg-clip-text;
+    background-image: linear-gradient(135deg, #fbbf24 0%, #fb7185 100%);
+  }
+  .text-gradient-teal {
+    @apply text-transparent bg-clip-text;
+    background-image: linear-gradient(135deg, #22d3ee 0%, #10b981 100%);
+  }
+
+  /* Glow line */
+  .glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(14,157,232,0.5), transparent);
+  }
+
+  /* Shimmer skeleton */
+  .skeleton {
+    @apply rounded-xl;
+    background: linear-gradient(90deg,
+      rgba(255,255,255,0.03) 25%,
+      rgba(255,255,255,0.07) 50%,
+      rgba(255,255,255,0.03) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s linear infinite;
+  }
+}
+
+/* ─── Utility Layer ────────────────────────────────────────────────────────── */
+@layer utilities {
+  .font-display { font-family: 'Outfit', 'Inter', system-ui, sans-serif; }
+
+  /* Border glow utilities */
+  .border-glow-primary { border-color: rgba(14,157,232,0.4) !important; }
+  .border-glow-violet  { border-color: rgba(139,92,246,0.4) !important; }
+  .border-glow-emerald { border-color: rgba(52,211,153,0.4) !important; }
+  .border-glow-rose    { border-color: rgba(251,113,133,0.4) !important; }
+  .border-glow-cyan    { border-color: rgba(34,211,238,0.4) !important; }
+  .border-glow-amber   { border-color: rgba(251,191,36,0.4) !important; }
+}
+
+/* ─── Animations ───────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* Modal overlay */
+.modal-backdrop {
+  background: rgba(4, 8, 16, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Chart tooltip */
+.chart-tooltip {
+  @apply glass rounded-xl px-3 py-2.5 text-sm text-slate-200 shadow-card;
+}
+
+/* Floating label */
+.float-label-group {
+  @apply relative;
+}
+.float-label-group input:focus + label,
+.float-label-group input:not(:placeholder-shown) + label {
+  @apply text-xs text-primary-400 -translate-y-7 scale-90;
+}
+.float-label-group label {
+  @apply absolute left-4 top-3 text-sm text-slate-500 pointer-events-none
+         transition-all duration-200 origin-left;
+}
+
+/* Page transition wrapper */
+.page-transition {
+  @apply w-full;
+}
+
+/* Scroll fix: flex items default to min-height:auto which prevents
+   overflow-y-auto on <main> from activating. Setting min-height:0
+   on the page root and its direct <main> child allows the flex-1
+   height to be bounded so the inner scroll container can work. */
+.page-root        { min-height: 0; }
+.page-root > main { min-height: 0; }
+
+/* Auth card glow */
+.auth-glow-ring {
+  background: conic-gradient(
+    from 0deg,
+    rgba(14,157,232,0.3),
+    rgba(139,92,246,0.3),
+    rgba(34,211,238,0.3),
+    rgba(14,157,232,0.3)
+  );
+  border-radius: inherit;
+  animation: spin 8s linear infinite;
+}
+
+/* Neon border on focus */
+.neon-focus:focus-within {
+  box-shadow: 0 0 0 2px rgba(14,157,232,0.3), 0 0 20px rgba(14,157,232,0.15);
+}
+
+/* Custom range input */
+input[type=range] { @apply accent-primary-500; }
+
+/* Hide default number input arrows */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* React Hot Toast custom positioning */
+.toast-container { z-index: 9999 !important; }
+
+/* ─── Light Mode ──────────────────────────────────────────────────────────── */
+/* Activated when html does NOT have the .dark class (Sun button clicked)      */
+
+html:not(.dark) body {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Glass surfaces — the single most impactful override */
+html:not(.dark) .glass {
+  background: rgba(255, 255, 255, 0.82) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+html:not(.dark) .glass-hover:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Named dark background utilities */
+html:not(.dark) .bg-dark-1000 { background-color: #f1f5f9 !important; }
+html:not(.dark) .bg-dark-950  { background-color: #f8fafc !important; }
+html:not(.dark) .bg-dark-900  { background-color: #ffffff !important; }
+html:not(.dark) .bg-dark-850  { background-color: #f1f5f9 !important; }
+
+/* Page-root class — pages use this as their main wrapper */
+html:not(.dark) .page-root { background-color: rgba(241, 245, 249, 0.8) !important; }
+
+/* Text colours — overridden via semantic class so specificity beats Tailwind */
+html:not(.dark) .text-white     { color: #0f172a !important; }
+html:not(.dark) .text-slate-100 { color: #1e293b !important; }
+html:not(.dark) .text-slate-200 { color: #334155 !important; }
+html:not(.dark) .text-slate-300 { color: #475569 !important; }
+html:not(.dark) .text-slate-400 { color: #64748b !important; }
+html:not(.dark) .text-slate-500 { color: #94a3b8 !important; }
+html:not(.dark) .text-slate-600 { color: #94a3b8 !important; }
+
+/* Input */
+html:not(.dark) .input {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  color: #0f172a !important;
+}
+
+/* Skeleton shimmer */
+html:not(.dark) .skeleton {
+  background: linear-gradient(90deg,
+    rgba(15, 23, 42, 0.04) 25%,
+    rgba(15, 23, 42, 0.08) 50%,
+    rgba(15, 23, 42, 0.04) 75%
+  );
+}
+
+/* Scrollbar */
+html:not(.dark) ::-webkit-scrollbar-thumb       { background: #cbd5e1; }
+html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Chart axis ticks */
+html:not(.dark) .recharts-cartesian-axis-tick text { fill: #94a3b8 !important; }
+
+/* Select options */
+html:not(.dark) select option { background-color: #f8fafc; color: #0f172a; }
